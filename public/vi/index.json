@@ -1,0 +1,99 @@
+[
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/",
+	"title": "Chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": "Trong bước này, chúng ta sẽ cần chuẩn bị:\nNội dung Tạo bảng DynamoDB Tạo hàm Lambda Tạo một API HTTP Tạo các Route Tạo một Tích hợp (Integration) Gán Tích hợp vào Các Route "
+},
+{
+	"uri": "//localhost:50167/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": "AWS Lambda AWS Lambda là một dịch vụ điện toán không máy chủ (serverless), cho phép bạn chạy mã mà không cần quản lý máy chủ. Lambda được sử dụng phổ biến để thực hiện các tác vụ ngắn gọn, chẳng hạn như xử lý dữ liệu, gọi API, hoặc quản lý các sự kiện.\nVới việc sử dụng AWS Lambda, bạn sẽ có được những ưu điểm sau:\nKhông cần quản lý máy chủ: AWS tự động quản lý việc phân bổ tài nguyên và điều chỉnh quy mô. Kích hoạt dựa trên sự kiện: Chạy mã khi xảy ra sự kiện, chẳng hạn như yêu cầu HTTP (khi tích hợp với API Gateway), hoặc thay đổi dữ liệu trong DynamoDB. Thanh toán theo yêu cầu: Chỉ trả tiền cho thời gian thực thi và số lượng yêu cầu. Ứng dụng trong CRUD API: Lambda sẽ xử lý các chức năng cụ thể của API như tạo, đọc, cập nhật và xóa tài nguyên.\nAmazon DynamoDB DynamoDB là cơ sở dữ liệu NoSQL được quản lý hoàn toàn bởi AWS, thiết kế cho các ứng dụng yêu cầu hiệu năng cao và khả năng mở rộng linh hoạt.\nVới việc sử dụng AWS DynamoDB, bạn sẽ có được những ưu điểm sau:\nTốc độ cao: Được tối ưu hóa để xử lý hàng triệu yêu cầu mỗi giây với độ trễ thấp. Không cần quản lý hạ tầng: DynamoDB tự động mở rộng và sao lưu dữ liệu. Dễ dàng tích hợp: Làm việc hiệu quả với AWS Lambda, API Gateway, và các dịch vụ AWS khác. Ứng dụng trong CRUD API: DynamoDB sẽ lưu trữ dữ liệu của ứng dụng. Bạn sẽ thực hiện các thao tác thêm, sửa, xóa và truy vấn dữ liệu thông qua bảng DynamoDB.\nAWS API Gateway API Gateway là một dịch vụ AWS cho phép bạn tạo, triển khai, và quản lý các API RESTful hoặc WebSocket.\nVới việc sử dụng API Gateway, bạn sẽ có được những ưu điểm sau:\nTích hợp tốt với Lambda: Dễ dàng kết nối API Gateway với AWS Lambda để xử lý yêu cầu. Bảo mật: Hỗ trợ quản lý khóa API, giới hạn tốc độ, và xác thực (IAM, Lambda Authorizer). Hỗ trợ đa giao thức: Bao gồm REST, HTTP, và WebSocket. Ứng dụng trong CRUD API: API Gateway sẽ là điểm vào của API, nhận các yêu cầu HTTP (GET, POST, PUT, DELETE) và định tuyến chúng đến các hàm Lambda tương ứng để xử lý.\nTổng hợp luồng hoạt động CRUD API\n1.Người dùng gửi yêu cầu HTTP đến API Gateway. 2.API Gateway chuyển yêu cầu đến hàm Lambda tương ứng. 3.Lambda xử lý logic và tương tác với DynamoDB để thực hiện các thao tác trên dữ liệu. 4.Lambda trả về kết quả thông qua API Gateway, gửi lại cho người dùng. Hệ thống này không chỉ linh hoạt, mà còn tiết kiệm chi phí nhờ vào mô hình tính phí theo tài nguyên sử dụng.\n"
+},
+{
+	"uri": "//localhost:50167/vi/",
+	"title": "Session Management",
+	"tags": [],
+	"description": "",
+	"content": "Xây Dựng API CRUD với AWS Lambda và DynamoDB Tổng quan Hướng dẫn này sẽ chỉ bạn cách tạo một API CRUD (Tạo, Đọc, Cập nhật, Xóa) không cần máy chủ bằng AWS Lambda và DynamoDB. Bạn sẽ sử dụng API Gateway để định tuyến các yêu cầu HTTP đến hàm Lambda, hàm này sẽ tương tác với bảng DynamoDB để lưu trữ dữ liệu. Các bước thực hiện bao gồm:\nNội dung Giới thiệu Các bước chuẩn bị Kiểm Tra API Của Bạn Dọn dẹp tài nguyên "
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/2.1.1-createdynamodb/",
+	"title": "Tạo bảng DynamoDB ",
+	"tags": [],
+	"description": "",
+	"content": "Bạn sẽ sử dụng một bảng DynamoDB để lưu trữ dữ liệu cho API của mình. Mỗi mục sẽ có một ID duy nhất, mà chúng ta sẽ sử dụng làm khóa phân vùng (partition key) cho bảng.\nĐể tạo một bảng DynamoDB: Mở bảng điều khiển DynamoDB Chọn Create table. Đối với Table name, nhập http-crud-tutorial-items. Đối với Partition key, nhập id. Chọn Create table. Tạo thành công một bảng DynamoDB: "
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/",
+	"title": " Các bước chuẩn bị ",
+	"tags": [],
+	"description": "",
+	"content": " **HÃY ĐÓN NHẬN SỰ CHUẨN BỊ CHU ĐÁO TỪ MINH CHÂU**\r"
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/2.1.2-createlambda/",
+	"title": "Tạo hàm Lambda",
+	"tags": [],
+	"description": "",
+	"content": "Tạo một hàm Lambda để xử lý backend cho API, thực hiện các thao tác Tạo, Đọc, Cập nhật và Xóa (CRUD) trên DynamoDB. Hàm này sử dụng sự kiện từ API Gateway để xác định hành động phù hợp. Để đơn giản, hướng dẫn này sử dụng một hàm duy nhất, nhưng theo nguyên tắc tốt nhất, bạn nên tạo các hàm riêng cho từng route.\nTạo hàm Lambda: 1.Đăng nhập vào Bảng điều khiển Lambda\n2.Chọn Create function 3.Đối với Function name, nhập http-crud-tutorial-function. 4.Đối với Runtime, chọn Node.js hoặc Python phiên bản mới nhất được hỗ trợ.\n5.Dưới Permissions, chọn Change default execution role.\n6.Chọn Create a new role from AWS policy templates.\n7.Đối với Role name, nhập http-crud-tutorial-role-demo.\n8.Đối với Policy templates, chọn Simple microservice permissions. Chính sách này cấp quyền cho hàm Lambda để tương tác với DynamoDB.\n9.Chọn Create function.\n10.Mở hàm Lambda trong trình chỉnh sửa mã của bảng điều khiển, và thay thế nội dung hiện tại bằng mã sau. Chọn Deploy để cập nhật hàm của bạn. import { DynamoDBClient } from \u0026#34;@aws-sdk/client-dynamodb\u0026#34;;\rimport {\rDynamoDBDocumentClient,\rScanCommand,\rPutCommand,\rGetCommand,\rDeleteCommand,\r} from \u0026#34;@aws-sdk/lib-dynamodb\u0026#34;;\rconst client = new DynamoDBClient({});\rconst dynamo = DynamoDBDocumentClient.from(client);\rconst tableName = \u0026#34;http-crud-tutorial-items\u0026#34;;\rexport const handler = async (event, context) =\u0026gt; {\rlet body;\rlet statusCode = 200;\rconst headers = {\r\u0026#34;Content-Type\u0026#34;: \u0026#34;application/json\u0026#34;,\r};\rtry {\rswitch (event.routeKey) {\rcase \u0026#34;DELETE /items/{id}\u0026#34;:\rawait dynamo.send(\rnew DeleteCommand({\rTableName: tableName,\rKey: {\rid: event.pathParameters.id,\r},\r})\r);\rbody = `Deleted item ${event.pathParameters.id}`;\rbreak;\rcase \u0026#34;GET /items/{id}\u0026#34;:\rbody = await dynamo.send(\rnew GetCommand({\rTableName: tableName,\rKey: {\rid: event.pathParameters.id,\r},\r})\r);\rbody = body.Item;\rbreak;\rcase \u0026#34;GET /items\u0026#34;:\rbody = await dynamo.send(\rnew ScanCommand({ TableName: tableName })\r);\rbody = body.Items;\rbreak;\rcase \u0026#34;PUT /items\u0026#34;:\rlet requestJSON = JSON.parse(event.body);\rawait dynamo.send(\rnew PutCommand({\rTableName: tableName,\rItem: {\rid: requestJSON.id,\rprice: requestJSON.price,\rname: requestJSON.name,\r},\r})\r);\rbody = `Put item ${requestJSON.id}`;\rbreak;\rdefault:\rthrow new Error(`Unsupported route: \u0026#34;${event.routeKey}\u0026#34;`);\r}\r} catch (err) {\rstatusCode = 400;\rbody = err.message;\r} finally {\rbody = JSON.stringify(body);\r}\rreturn {\rstatusCode,\rbody,\rheaders,\r};\r}; Tạo thành công hàm Lambda "
+},
+{
+	"uri": "//localhost:50167/vi/3-testyourapi/",
+	"title": "Kiểm tra API của bạn",
+	"tags": [],
+	"description": "",
+	"content": "Để đảm bảo rằng API của bạn đang hoạt động, bạn sử dụng curlURL Value : .\nĐể lấy URL để gọi API của bạn:\nĐăng nhập vào bảng điều khiển API Gateway.\nChọn API của bạn.\nGhi lại URL gọi API của bạn. Nó xuất hiện dưới Invoke URL trên trang Details.\nSao chép URL gọi API của bạn. URL đầy đủ trông giống như https://f5abcd.execute-api.ap-southeast-1.amazonaws.com/URL Value : Để tạo hoặc cập nhật một mục: Sử dụng lệnh sau để tạo hoặc cập nhật một mục. Lệnh này bao gồm một body yêu cầu với ID, giá, và tên của mục. curl -X \u0026#34;PUT\u0026#34; -H \u0026#34;Content-Type: application/json\u0026#34; -d \u0026#34;{\\\u0026#34;id\\\u0026#34;: \\\u0026#34;123\\\u0026#34;, \\\u0026#34;price\\\u0026#34;: 12345, \\\u0026#34;name\\\u0026#34;: \\\u0026#34;myitem\\\u0026#34;}\u0026#34; https://f5abcd. execute-api.ap-southeast-1.amazonaws.com/ Để lấy tất cả các mục: Sử dụng lệnh sau để liệt kê tất cả các mục. curl https://f5abcd.execute-api.ap-southeast-1.amazonaws.com/items Để lấy một mục: Sử dụng lệnh sau để lấy một mục theo ID của nó curl https://f5abcd.execute-api.ap-southeast-1.amazonaws.com/items/123 Để xóa một mục: Sử dụng lệnh sau để xóa một mục. curl -X \u0026#34;DELETE\u0026#34; https://f5abcd.execute-api.ap-southeast-1.amazonaws.com/items/123 "
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/2.1.3-createanhttp_api/",
+	"title": "Tạo một API HTTP",
+	"tags": [],
+	"description": "",
+	"content": "API HTTP cung cấp một điểm cuối HTTP cho hàm Lambda của bạn. Trong bước này, bạn sẽ tạo một API trống. Trong các bước tiếp theo, bạn sẽ cấu hình các route và tích hợp để kết nối API của bạn với hàm Lambda.\nTạo một API HTTP Đăng nhập vào Bảng điều khiển API Gateway Chọn Create API, và sau đó đối với HTTP API, chọn Build.\nĐối với API name, nhập http-crud-tutorial-api-demo.\nChọn Next.\nĐối với Configure routes, chọn Next để bỏ qua việc tạo route. Bạn sẽ tạo các route sau Xem xét giai đoạn mà API Gateway tạo cho bạn, sau đó chọn Next Chọn Create. Tạo một API HTTP thành công: "
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/2.1.4-createroute/",
+	"title": "Tạo các Route",
+	"tags": [],
+	"description": "",
+	"content": "Tạo các Route Routes là cách để gửi các yêu cầu API đến các tài nguyên backend. Một route bao gồm hai phần: phương thức HTTP và đường dẫn tài nguyên, ví dụ: GET /items. Đối với API ví dụ này, chúng ta tạo bốn route:\nGET /items/{id}URL Value : GET /itemsURL Value : PUT /itemsURL Value : DELETE /items/{id}URL Value : Để tạo các route: Đăng nhập vào Bảng điều khiển API Gateway\nChọn API của bạn\nChọn Routes.\nChọn Create\nĐối với Method, chọn GET.\nĐối với Path, nhập/items/{id}URL Value : . Phần {id} ở cuối đường dẫn là một tham số đường dẫn mà API Gateway sẽ lấy từ đường dẫn yêu cầu khi một khách hàng gửi yêu cầu.\nChọn Create\nRepeat steps 4-7 for GET /items, DELETE /items/{id}, and PUT /items "
+},
+{
+	"uri": "//localhost:50167/vi/4-cleanup/",
+	"title": "Dọn dẹp tài nguyên  ",
+	"tags": [],
+	"description": "",
+	"content": "Để tránh các chi phí không cần thiết, hãy xóa các tài nguyên mà bạn đã tạo trong quá trình bài tập bắt đầu này. Các bước sau đây sẽ xóa HTTP API, hàm Lambda và các tài nguyên liên quan.\nĐể xóa bảng DynamoDB: Mở bảng điều khiển DynamoDB. Chọn bảng của bạn.\nChọn Delete table.\nXác nhận lựa chọn của bạn và chọn Delete\nĐể xóa một HTTP API: Đăng nhập vào bảng điều khiển API Gateway. Trên trang APIs, chọn một API. Chọn Actions, sau đó chọn Delete.\nChọn Delete.\nĐể xóa một hàm Lambda: Đăng nhập vào bảng điều khiển Lambda. Trên trang Functions, chọn một hàm. Chọn Actions, sau đó chọn Delete.\nChọn Delete.\nĐể xóa vai trò thực thi của hàm Lambda: Trong [bảng điều khiển AWS Identity and Access Management], mở trang Roles. Chọn vai trò của hàm, ví dụ, http-crud-tutorial-role.\nChọn Delete role.\nChọn Yes, delete\n"
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/2.1.5-createintergration/",
+	"title": "Tạo một Tích hợp (Integration)",
+	"tags": [],
+	"description": "",
+	"content": "Tạo một Tích hợp (Integration) Để kết nối một route với tài nguyên backend, bạn cần tạo một tích hợp. Trong ví dụ này, bạn sẽ thiết lập một tích hợp Lambda dùng chung cho tất cả các route trong API. Tích hợp này đảm bảo rằng các yêu cầu gửi đến sẽ được chuyển đến hàm Lambda để xử lý, trở thành trung tâm hoạt động của API.\nĐăng nhập vào Bảng điều khiển API Gateway.\nChọn API của bạn\nChọn Integrations.\nChọn Manage integrations, sau đó chọn Create\nBỏ qua Attach this integration to a route. Bạn sẽ hoàn thành việc này trong bước sau.\nĐối với Integration type, chọn Lambda function.\nĐối với Lambda function, nhập .http-crud-tutorial-functionURL Value :\nChọn Create.\n"
+},
+{
+	"uri": "//localhost:50167/vi/2-prerequiste/2.1-createec2/2.1.6-assignintegration/",
+	"title": "Gán Tích hợp vào Các Route",
+	"tags": [],
+	"description": "",
+	"content": "Đối với API ví dụ này, bạn sử dụng cùng một tích hợp Lambda cho tất cả các route. Sau khi gán tích hợp cho tất cả các route của API, hàm Lambda của bạn sẽ được gọi khi một khách hàng gọi bất kỳ route nào của bạn.\nĐể gán tích hợp vào các route: Đăng nhập vào Bảng điều khiển API Gateway.\nChọn API của bạn.\nChọn Integrations.\nChọn một route.\nDưới Choose an existing integration, chọn http-crud-tutorial-functionURL Value : .\nChọn Attach integration.\nLặp lại các bước 4-6 cho tất cả các route "
+},
+{
+	"uri": "//localhost:50167/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:50167/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
