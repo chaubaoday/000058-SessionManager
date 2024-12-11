@@ -1,5 +1,5 @@
 ---
-title : "Session Management"
+title : "CRUD API Solutions"
 date :  "2024-12-05" 
 weight : 1 
 chapter : false
